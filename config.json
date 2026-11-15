@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "notes_dirname": ".handoff",
+  "soft_ratio": 0.65,
+  "hard_ratio": 0.80,
+  "hard_repeat_every": 3,
+  "compaction_tokens": 0,
+  "compaction_bytes": 0,
+  "stop_refresh": true,
+  "stop_min_ratio": 0.40,
+  "stop_min_tool_calls": 8,
+  "git_exclude": true
+}

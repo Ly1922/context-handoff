@@ -1,0 +1,13 @@
+{
+  "context-handoff": {
+    "SessionStart": [
+      { "type": "command", "command": "python hooks/handoff.py session", "timeout": 10 }
+    ],
+    "PreInvocation": [
+      { "type": "command", "command": "python hooks/handoff.py pre", "timeout": 10 }
+    ],
+    "Stop": [
+      { "type": "command", "command": "python hooks/handoff.py stop", "timeout": 10 }
+    ]
+  }
+}

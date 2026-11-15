@@ -1,0 +1,8 @@
+{
+  "name": "context-handoff",
+  "displayName": "Context Handoff",
+  "version": "0.1.0",
+  "description": "Survive auto-compaction: watches context usage, has the agent write a local handoff note before compaction, and reads it back right after.",
+  "author": { "name": "Ly1922", "url": "https://github.com/Ly1922" },
+  "repository": "https://github.com/Ly1922/context-handoff"
+}
