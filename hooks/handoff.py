@@ -96,6 +96,18 @@ def to_int(v):
         return 0
 
 
+def unquote_arg(v):
+    """Transcript tool_calls[].args values are often JSON-encoded strings."""
+    if isinstance(v, str) and len(v) >= 2 and v[0] == '"' and v[-1] == '"':
+        try:
+            u = json.loads(v)
+            if isinstance(u, str):
+                return u
+        except Exception:
+            pass
+    return str(v or "")
+
+
 def iso_to_epoch(s):
     try:
         return datetime.datetime.fromisoformat(s.replace("Z", "+00:00")).timestamp()
@@ -219,11 +231,14 @@ def process_step(st, d, nbytes, model, learn=True):
             st["turn_tool_calls"] += 1
             if name in EDIT_TOOLS:
                 for k in PATH_KEYS:
-                    if args.get(k):
-                        push_unique(st["files"], str(args[k]), 40)
+                    val = unquote_arg(args.get(k))
+                    if val:
+                        push_unique(st["files"], val, 40)
                         break
             elif name == "run_command" and args.get("CommandLine"):
-                st["commands"] = (st["commands"] + [redact(short(args["CommandLine"], 220))])[-12:]
+                cmd = unquote_arg(args["CommandLine"])
+                if cmd:
+                    st["commands"] = (st["commands"] + [redact(short(cmd, 220))])[-12:]
 
 
 def scan(st, path, model):
